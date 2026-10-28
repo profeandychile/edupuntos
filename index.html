@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080808">
+<title>EduPuntos</title>
+<style>
+:root{--black:#080808;--bg:#f4f4f5;--line:#e5e5e5;--muted:#737373}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#171717;font:15px Arial,sans-serif}
+header{background:#080808;color:white;padding:16px;display:flex;align-items:center;gap:12px}
+.logo{background:white;color:black;border-radius:12px;padding:12px;font-size:22px;font-weight:bold}
+h1{font-size:23px;margin:0}
+header p{margin:4px 0;color:#ccc}
+main{max-width:900px;margin:16px auto;padding:0 12px}
+nav{display:flex;gap:7px;overflow:auto;margin-bottom:14px}
+button{cursor:pointer;font:inherit}
+.tab,.btn{border-radius:10px;padding:11px 13px;font-weight:bold}
+.tab{background:white;border:1px solid var(--line);white-space:nowrap}
+.tab.active,.btn{background:#080808;color:white;border:1px solid #080808}
+.card{background:white;border:1px solid var(--line);border-radius:15px;padding:16px;margin-bottom:12px}
+label{display:block;font-size:13px;font-weight:bold;margin:12px 0 5px}
+input,select{width:100%;padding:12px;border:1px solid #d4d4d4;border-radius:10px;background:white;font:inherit}
+.muted{font-size:12px;color:var(--muted)}
+.badge{display:inline-block;border:1px solid #444;border-radius:20px;padding:6px 10px;font-size:12px}
+.points{font-weight:bold;white-space:nowrap}
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+.reasons{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.reason{border:1px solid #ddd;background:white;border-radius:10px;padding:12px 5px}
+.reason.selected{background:#eee;border:2px solid black}
+.reason strong{display:block;margin-top:5px}
+.row{display:flex;gap:8px;margin-top:12px}
+.row button{flex:1}
+.secondary{background:#eee;color:#111;border-color:#ddd}
+.danger{background:#fff0f0;color:#a00;border-color:#f4d0d0}
+.blackbox{background:#080808;color:white;border-radius:12px;padding:15px}
+.stat{font-size:28px;font-weight:bold}
+.history,.student{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.info{flex:1;min-width:0}
+.avatar{background:#eee;border-radius:10px;padding:12px;font-weight:bold}
+.hidden{display:none!important}
+.notice{background:#fff;border:1px solid #ddd;border-radius:10px;padding:10px;margin-bottom:12px;font-size:12px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.card{padding:13px}.reasons{gap:5px}.reason{font-size:12px;padding:10px 3px}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">E+</div>
+<div><h1>EduPuntos</h1><p>Reconoce · Motiva · Aprende</p></div>
+</header>
+<main>
+<div class="notice">Versión de prueba: los datos se guardan en este navegador. Aún no hay sincronización en la nube ni acceso seguro para docentes.</div>
+<nav>
+<button class="tab active" data-page="assign">Asignar puntos</button>
+<button class="tab" data-page="students">Estudiantes</button>
+<button class="tab" data-page="reports">Reportería</button>
+<button class="tab" data-page="backup">Respaldo</button>
+</nav>
+
+<section class="page" id="assign">
+<div class="grid">
+<div class="card">
+<span class="badge">▣ IDENTIFICACIÓN NFC</span>
+<h2>Asignar puntos</h2>
+<p class="muted">Acerca la tarjeta o busca al estudiante.</p>
+<label>Buscar alumno o curso</label>
+<input id="search" placeholder="Escribe nombre o curso...">
+<label>Seleccionar alumno</label>
+<select id="student"><option value="">Selecciona estudiante</option></select>
+<div id="profile"></div>
+<label>Motivo de asignación</label>
+<select id="reason">
+<option>Excelente actitud</option>
+<option>Trabajo colaborativo</option>
+<option>Participación destacada</option>
+<option>Esfuerzo personal</option>
+<option>Logro de aprendizaje</option>
+<option>Ayuda a compañeros</option>
+<option>Otro (especificar)</option>
+</select>
+<input id="custom" class="hidden" placeholder="Especifica el motivo" style="margin-top:8px">
+<label>Cantidad de puntos</label>
+<div class="reasons">
+<button class="reason" data-points="1">1 punto<strong>+1 pts</strong></button>
+<button class="reason selected" data-points="2">2 puntos<strong>+2 pts</strong></button>
+<button class="reason" data-points="3">3 puntos<strong>+3 pts</strong></button>
+</div>
+<div class="row">
+<button class="btn" id="confirm">Confirmar asignación</button>
+<button class="btn secondary" id="clear">Limpiar</button>
+</div>
+<p id="message" class="muted"></p>
+</div>
+<div class="card">
+<div class="blackbox">
+<h2>EduPuntos</h2>
+<p class="muted">Estudiantes</p><div class="stat" id="count">0</div>
+<p class="muted">Puntos asignados</p><div class="stat" id="total">0</div>
+<p class="muted">Asignaciones</p><div class="stat" id="events">0</div>
+</div>
+<h3>Acceso por NFC</h3>
+<p class="muted">Cada tarjeta debe tener programado el enlace individual del estudiante.</p>
+</div>
+</div>
+<div class="card"><h2>Últimas asignaciones</h2><div id="recent"></div></div>
+</section>
+
+<section class="page hidden" id="students">
+<div class="card">
+<h2>Ingresar estudiante</h2>
+<label>Nombre completo</label><input id="name" placeholder="Nombre y apellidos">
+<label>Curso</label><input id="course" placeholder="Ej. 6° Básico">
+<label>Código NFC único</label><input id="code" placeholder="alumno-001">
+<div class="row"><button class="btn" id="add">Guardar estudiante</button></div>
+</div>
+<div class="card"><h2>Estudiantes registrados</h2><input id="filter" placeholder="Buscar estudiante..."><div id="list"></div></div>
+</section>
+
+<section class="page hidden" id="reports">
+<div class="card"><h2>Reporte de puntos</h2>
+<button class="btn secondary" id="csv">Exportar CSV</button>
+<div id="report"></div><h2>Historial completo</h2><div id="history"></div>
+</div>
+</section>
+
+<section class="page hidden" id="backup">
+<div class="card"><h2>Respaldo y restauración</h2>
+<button class="btn" id="backupBtn">Descargar respaldo JSON</button>
+<label>Seleccionar respaldo</label><input type="file" id="file" accept=".json">
+<div class="row"><button class="btn secondary" id="restore">Restaurar respaldo</button></div>
+<p id="backupMsg" class="muted"></p>
+<button class="btn danger" id="erase">Borrar datos locales</button>
+</div>
+</section>
+</main>
+
+<script>
+(()=>{
+const KEY="edupuntos_black_v1";
+let db={students:[],history:[]},points=2,restoreData=null;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const uid=()=>Math.random().toString(36).slice(2,9)+Date.now().toString(36);
+const name=id=>db.students.find(s=>s.id===id)?.name||"Estudiante";
+const score=id=>db.history.filter(h=>h.studentId===id).reduce((n,h)=>n+h.points,0);
+const date=d=>new Date(d).toLocaleString("es-CL");
+try{const d=JSON.parse(localStorage.getItem(KEY)||"null");if(d&&Array.isArray(d.students)&&Array.isArray(d.history))db=d}catch(e){}
+
+function save(){localStorage.setItem(KEY,JSON.stringify(db));render()}
+function historyHTML(items){
+return items.length?items.map(h=>`<div class="history"><div class="info"><strong>${esc(name(h.studentId))}</strong><div class="muted">${esc(h.reason)} · ${date(h.at)}</div></div><div class="points">+${h.points} pts</div></div>`).join(""):'<p class="muted">Todavía no hay asignaciones.</p>';
+}
+
+function render(){
+const old=$("student").value,q=$("search").value.toLowerCase();
+const token=new URLSearchParams(location.search).get("student");
+$("student").innerHTML='<option value="">Selecciona estudiante</option>'+db.students.filter(s=>(s.name+" "+s.course+" "+s.code).toLowerCase().includes(q)).map(s=>`<option value="${esc(s.id)}">${esc(s.name)} · ${esc(s.course)}</option>`).join("");
+if(db.students.some(s=>s.id===old))$("student").value=old;
+if(token){const s=db.students.find(s=>s.id===token||s.code===token);if(s)$("student").value=s.id}
+const s=db.students.find(x=>x.id===$("student").value);
+$("profile").innerHTML=s?`<p><strong>${esc(s.name)}</strong><br><span class="muted">${esc(s.course)} · Puntaje actual: ${score(s.id)} puntos</span></p>`:"";
+$("count").textContent=db.students.length;
+$("total").textContent=db.history.reduce((n,h)=>n+h.points,0);
+$("events").textContent=db.history.length;
+$("recent").innerHTML=historyHTML([...db.history].reverse().slice(0,5));
+$("history").innerHTML=historyHTML([...db.history].reverse());
+$("list").innerHTML=db.students.map(s=>`<div class="student"><div class="avatar">${esc(s.name.slice(0,2).toUpperCase())}</div><div class="info"><strong>${esc(s.name)}</strong><div class="muted">${esc(s.course)} · ${score(s.id)} pts</div></div><button class="btn secondary" data-link="${esc(s.id)}">Enlace NFC</button><button class="btn danger" data-del="${esc(s.id)}">×</button></div>`).join("")||'<p class="muted">Aún no hay estudiantes.</p>';
+$("report").innerHTML=db.students.slice().sort((a,b)=>score(b.id)-score(a.id)).map(s=>`<div class="history"><div class="info"><strong>${esc(s.name)}</strong><div class="muted">${esc(s.course)}</div></div><div class="points">${score(s.id)} pts</div></div>`).join("")||'<p class="muted">Sin datos.</p>';
+document.querySelectorAll("[data-link]").forEach(b=>b.onclick=()=>{const u=new URL(location.href);u.searchParams.set("student",b.dataset.link);prompt("Copia este enlace y prográmalo en la tarjeta NFC:",u.href)});
+document.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{if(confirm("¿Eliminar estudiante e historial?")){db.students=db.students.filter(s=>s.id!==b.dataset.del);db.history=db.history.filter(h=>h.studentId!==b.dataset.del);save()}});
+}
+document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>{document.querySelectorAll(".page").forEach(p=>p.classList.toggle("hidden",p.id!==b.dataset.page));document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t===b))});
+document.querySelectorAll("[data-points]").forEach(b=>b.onclick=()=>{points=Number(b.dataset.points);document.querySelectorAll("[data-points]").forEach(x=>x.classList.toggle("selected",x===b))});
+$("reason").onchange=()=>$("custom").classList.toggle("hidden",$("reason").value!=="Otro (especificar)");
+$("search").oninput=render;$("student").onchange=render;
+
+$("add").onclick=()=>{
+const n=$("name").value.trim(),c=$("course").value.trim(),code=$("code").value.trim();
+if(!n)return alert("Escribe el nombre del estudiante.");
+if(code&&db.students.some(s=>s.code===code))return alert("Ese código NFC ya existe.");
+db.students.push({id:uid(),name:n,course:c,code});
+$("name").value=$("course").value=$("code").value="";
+save();document.querySelector('[data-page="assign"]').click();
+};
+$("confirm").onclick=()=>{
+const id=$("student").value;
+if(!id)return alert("Selecciona un estudiante.");
+const reason=$("reason").value==="Otro (especificar)"?$("custom").value.trim():$("reason").value;
+if(!reason)return alert("Escribe el motivo.");
+if(confirm(`¿Asignar ${points} punto(s) a ${name(id)} por ${reason}?`)){
+db.history.push({id:uid(),studentId:id,reason,points,at:new Date().toISOString()});
+$("message").textContent="Asignación guardada en este navegador.";save();
+}
+};
+$("clear").onclick=()=>{$("student").value="";$("custom").value="";$("message").textContent="";render()};
+$("filter").oninput=()=>{const q=$("filter").value.toLowerCase();document.querySelectorAll("#list .student").forEach(e=>e.classList.toggle("hidden",!e.textContent.toLowerCase().includes(q)))};
+
+$("backupBtn").onclick=()=>{
+const a=document.createElement("a"),u=URL.createObjectURL(new Blob([JSON.stringify(db,null,2)],{type:"application/json"}));
+a.href=u;a.download="edupuntos-respaldo.json";a.click();URL.revokeObjectURL(u);
+};
+$("file").onchange=async e=>{try{const d=JSON.parse(await e.target.files[0].text());if(!Array.isArray(d.students)||!Array.isArray(d.history))throw Error();restoreData=d;$("backupMsg").textContent="Archivo válido."}catch{restoreData=null;$("backupMsg").textContent="Archivo no válido."}};
+$("restore").onclick=()=>{if(!restoreData)return alert("Selecciona un respaldo válido.");if(confirm("Se reemplazarán los datos actuales. ¿Continuar?")){db=restoreData;save()}};
+$("erase").onclick=()=>{if(confirm("¿Borrar todos los datos locales?")){db={students:[],history:[]};save()}};
+$("csv").onclick=()=>{
+const rows=[["Estudiante","Curso","Puntos"],...db.students.map(s=>[s.name,s.course,score(s.id)])];
+const csv=rows.map(r=>r.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(",")).join("\r\n");
+const a=document.createElement("a"),u=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}));
+a.href=u;a.download="edupuntos-reporte.csv";a.click();URL.revokeObjectURL(u);
+};
+render();
+})();
+</script>
+</body>
+</html>
