@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#24113f">
-<title>EduPuntos</title>
+<title>Edupuntos💜</title>
 <style>
 :root {
   --bg:#170b29;
@@ -27,7 +27,8 @@ input,select,textarea{width:100%;padding:11px;background:#180d29;color:white;bor
 button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #d8b4fe;outline-offset:2px}
 header{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;padding:9px;background:var(--panel);border-bottom:1px solid var(--border)}
 header button{background:var(--panel2);border:1px solid var(--border);padding:9px 11px}
-.brand{font-weight:900;font-size:17px}
+header .brand{border:0;background:transparent;padding:5px 0;font-weight:900;font-size:21px;letter-spacing:-.4px}
+header .brand:active{opacity:.8}
 .spacer{flex:1}
 main{width:100%;max-width:720px;margin:auto;padding:10px 10px 25px}
 h1{font-size:23px;margin:0 0 10px}
@@ -83,9 +84,9 @@ p{line-height:1.4}
 #menu nav .close{text-align:center}
 .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:20px}
 @media(max-width:480px){
-  header{gap:6px;padding:8px}
+  header{gap:6px;padding:8px 12px}
   header button{padding:8px}
-  .brand{font-size:15px}
+  header .brand{font-size:20px}
   main{padding:8px 7px 18px}
   .card{padding:9px;border-radius:13px}
   .profile{padding:1px 0 7px}
@@ -102,9 +103,9 @@ p{line-height:1.4}
 </style>
 </head>
 <body>
+
 <header>
-  <button onclick="home()">⌂ Inicio</button>
-  <div class="brand">💜 EduPuntos</div>
+  <button class="brand" onclick="home()" aria-label="Volver al inicio">Edupuntos💜</button>
   <div class="spacer"></div>
   <button onclick="menu(true)" aria-label="Abrir menú">☰</button>
 </header>
@@ -112,8 +113,8 @@ p{line-height:1.4}
 <div id="menu" class="hidden" onclick="if(event.target===this)menu(false)">
   <nav>
     <button class="close" onclick="menu(false)">✕ Cerrar</button>
-    <h2>💜 EduPuntos</h2>
-    <button onclick="home()">⌂ Inicio</button>
+    <h2>Edupuntos💜</h2>
+    <button onclick="home()">🏠 Inicio</button>
     <button onclick="page('students')">👥 Estudiantes</button>
     <button onclick="page('newStudent')">＋ Ingresar estudiante</button>
     <button onclick="page('categories')">🏷️ Motivos de asignación</button>
@@ -129,10 +130,12 @@ p{line-height:1.4}
 <script>
 const STORAGE_KEY="edupuntos_mobile_v2";
 const OLD_KEY="edupuntos_datos_v1";
+
 const DEFAULT_CATEGORIES=[
  "Trabajo en clases","Responsabilidad","Convivencia","Participación",
  "Esfuerzo","Ayuda a otros","Actividad completada","Otra categoría"
 ];
+
 const DEFAULT_REWARDS=[
  {id:"r1",name:"Elegir una actividad",cost:10},
  {id:"r2",name:"Ser ayudante del día",cost:20},
@@ -146,6 +149,7 @@ let db={
  rewards:DEFAULT_REWARDS.map(r=>({...r})),
  redemptions:[]
 };
+
 let currentStudent=null;
 let chosenCategory="";
 let chosenPoints=1;
@@ -155,7 +159,8 @@ let editingReward=null;
 function migrate(){
  try{
   const current=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");
-  if(current && Array.isArray(current.students)){
+
+  if(current&&Array.isArray(current.students)){
    db={...db,...current};
    db.categories=Array.isArray(db.categories)?db.categories:[...DEFAULT_CATEGORIES];
    db.rewards=Array.isArray(db.rewards)?db.rewards:[];
@@ -165,12 +170,14 @@ function migrate(){
   }
 
   const old=JSON.parse(localStorage.getItem(OLD_KEY)||"null");
+
   if(old&&Array.isArray(old.estudiantes)){
    db.students=old.estudiantes.map(s=>({
     id:String(s.id),
     name:s.nombre||s.name||"",
     course:s.curso||s.course||""
    }));
+
    db.history=(old.historial||[]).map(h=>({
     id:h.id||"h-"+Math.random().toString(36).slice(2),
     studentId:String(h.estudianteId??h.studentId??""),
@@ -180,48 +187,58 @@ function migrate(){
    }));
   }
  }catch(e){
-  console.error("No se pudieron cargar los datos",e);
+  console.error("Error al cargar datos",e);
  }
 }
 
 function save(){
  localStorage.setItem(STORAGE_KEY,JSON.stringify(db));
 }
+
 function esc(value){
  return String(value??"").replace(/[&<>"']/g,c=>({
   "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
  }[c]));
 }
+
 function newId(prefix="ep"){
  return prefix+"-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,7);
 }
+
 function menu(open){
  document.getElementById("menu").classList.toggle("hidden",!open);
 }
+
 function home(){
  menu(false);
  page("home");
 }
+
 function page(name){
  menu(false);
  const app=document.getElementById("app");
 
  if(name==="home"){
   const id=new URLSearchParams(location.search).get("student");
+
   if(id&&db.students.some(s=>s.id===id)){
    openProfile(id);
    return;
   }
+
   app.innerHTML=`
    <section class="hero">
-    <h1>EduPuntos 💜</h1>
+    <h1>Bienvenido a Edupuntos💜</h1>
     <p class="muted">Reconocer el esfuerzo, celebrar los avances y aprender jugando.</p>
    </section>
+
    <div class="stats">
     <div class="stat"><strong>${db.students.length}</strong><small>Estudiantes</small></div>
     <div class="stat"><strong>${totalAll()}</strong><small>Puntos disponibles totales</small></div>
    </div>
+
    <h2>Accesos rápidos</h2>
+
    <div class="grid">
     <button class="tile" onclick="page('students')"><span class="emoji">👥</span>Estudiantes<small>Ver y administrar perfiles</small></button>
     <button class="tile" onclick="page('newStudent')"><span class="emoji">➕</span>Ingresar estudiante<small>Crear perfil</small></button>
@@ -230,14 +247,18 @@ function page(name){
     <button class="tile" onclick="page('rewards')"><span class="emoji">🎁</span>Recompensas<small>Administrar y canjear</small></button>
     <button class="tile" onclick="page('reports')"><span class="emoji">📊</span>Resumen<small>Consultar puntajes</small></button>
    </div>
-   <div class="footer">EduPuntos · Aplicación educativa</div>`;
+
+   <div class="footer">Edupuntos💜 · Aplicación educativa</div>`;
  }
 
  if(name==="students"){
   app.innerHTML=`
    <h1>Estudiantes</h1>
    <button class="wide" onclick="page('newStudent')">＋ Ingresar estudiante</button>
-   <div class="field"><label>Buscar por nombre o curso</label><input id="search" placeholder="Buscar..." oninput="filterStudents()"></div>
+   <div class="field">
+    <label>Buscar por nombre o curso</label>
+    <input id="search" placeholder="Buscar..." oninput="filterStudents()">
+   </div>
    <div id="studentList">${studentRows(db.students)}</div>`;
  }
 
@@ -250,25 +271,40 @@ function page(name){
 }
 
 function total(id){
- const earned=db.history.filter(h=>h.studentId===id).reduce((sum,h)=>sum+Number(h.points||0),0);
- const spent=db.redemptions.filter(r=>r.studentId===id).reduce((sum,r)=>sum+Number(r.cost||0),0);
+ const earned=db.history
+  .filter(h=>h.studentId===id)
+  .reduce((sum,h)=>sum+Number(h.points||0),0);
+
+ const spent=db.redemptions
+  .filter(r=>r.studentId===id)
+  .reduce((sum,r)=>sum+Number(r.cost||0),0);
+
  return earned-spent;
 }
+
 function totalAll(){
  return db.students.reduce((sum,s)=>sum+total(s.id),0);
 }
+
 function studentRows(list){
  if(!list.length)return '<div class="empty">No hay estudiantes registrados.</div>';
+
  return list.map(s=>`
   <div class="student">
    <div class="avatar">👤</div>
-   <div class="details"><strong>${esc(s.name)}</strong><small>${esc(s.course||"Sin curso")} · ${total(s.id)} puntos</small></div>
+   <div class="details">
+    <strong>${esc(s.name)}</strong>
+    <small>${esc(s.course||"Sin curso")} · ${total(s.id)} puntos</small>
+   </div>
    <button onclick="openProfile('${esc(s.id)}')">Ver</button>
    <button class="secondary" onclick="editStudent('${esc(s.id)}')">Editar</button>
-  </div>`).join("");
+  </div>
+ `).join("");
 }
+
 function filterStudents(){
  const q=document.getElementById("search").value.toLowerCase();
+
  document.getElementById("studentList").innerHTML=studentRows(
   db.students.filter(s=>(s.name+" "+s.course).toLowerCase().includes(q))
  );
@@ -277,23 +313,38 @@ function filterStudents(){
 function studentForm(id=null){
  editingStudent=id;
  const s=id?db.students.find(x=>x.id===id):null;
+
  document.getElementById("app").innerHTML=`
   <h1>${s?"Editar estudiante":"Ingresar estudiante"}</h1>
+
   <div class="card">
-   <div class="field"><label>Nombre y apellido</label><input id="studentName" value="${esc(s?.name||"")}" placeholder="Nombre del estudiante"></div>
-   <div class="field"><label>Curso</label><input id="studentCourse" value="${esc(s?.course||"")}" placeholder="Ej. 6° Básico"></div>
+   <div class="field">
+    <label>Nombre y apellido</label>
+    <input id="studentName" value="${esc(s?.name||"")}" placeholder="Nombre del estudiante">
+   </div>
+
+   <div class="field">
+    <label>Curso</label>
+    <input id="studentCourse" value="${esc(s?.course||"")}" placeholder="Ej. 6° Básico">
+   </div>
+
    ${s?`<div class="notice">Código NFC: ${esc(s.id)}. Se conservará al editar.</div>`:""}
+
    <button class="wide" onclick="saveStudent()">${s?"Guardar cambios":"Guardar estudiante"}</button>
    <button class="wide secondary" style="margin-top:8px" onclick="page('students')">Cancelar</button>
+
    ${s?`<button class="wide danger" style="margin-top:8px" onclick="deleteStudent('${esc(s.id)}')">Eliminar estudiante</button>`:""}
   </div>`;
 }
+
 function editStudent(id){
  studentForm(id);
 }
+
 function saveStudent(){
  const name=document.getElementById("studentName").value.trim();
  const course=document.getElementById("studentCourse").value.trim();
+
  if(!name)return alert("Escribe el nombre del estudiante.");
 
  if(editingStudent){
@@ -302,17 +353,22 @@ function saveStudent(){
  }else{
   db.students.push({id:newId(),name,course});
  }
+
  save();
  editingStudent=null;
  page("students");
 }
+
 function deleteStudent(id){
  const s=db.students.find(x=>x.id===id);
  if(!s)return;
+
  if(!confirm(`¿Eliminar a ${s.name}? También se eliminarán su historial y sus canjes.`))return;
+
  db.students=db.students.filter(x=>x.id!==id);
  db.history=db.history.filter(x=>x.studentId!==id);
  db.redemptions=db.redemptions.filter(x=>x.studentId!==id);
+
  save();
  page("students");
 }
@@ -323,24 +379,25 @@ function openProfile(id){
  chosenPoints=1;
  profilePage();
 }
+
 function profilePage(){
  const s=db.students.find(x=>x.id===currentStudent);
  if(!s){page("students");return;}
 
  const history=db.history.filter(h=>h.studentId===s.id);
+
  const redemptions=db.redemptions.filter(r=>r.studentId===s.id);
+
  const movements=[
   ...history.map(h=>({
    category:h.category,
    points:Number(h.points),
-   date:h.date,
-   type:"earn"
+   date:h.date
   })),
   ...redemptions.map(r=>({
    category:"Canje: "+r.rewardName,
    points:-Number(r.cost),
-   date:r.date,
-   type:"redeem"
+   date:r.date
   }))
  ].sort((a,b)=>new Date(b.date)-new Date(a.date));
 
@@ -357,6 +414,7 @@ function profilePage(){
    </div>
 
    <h2>1. Categorías de asignación</h2>
+
    <div class="category-grid">
     ${db.categories.map((c,i)=>`
      <button class="category ${chosenCategory===c?"active":""}" onclick="chooseCategory(${i})">${esc(c)}</button>
@@ -364,6 +422,7 @@ function profilePage(){
    </div>
 
    <h2>2. Puntos a entregar</h2>
+
    <div class="points">
     ${[1,2,3].map(n=>`
      <button class="${chosenPoints===n?"active":""}" onclick="choosePoints(${n})">
@@ -373,33 +432,43 @@ function profilePage(){
    </div>
 
    <button class="confirm" onclick="confirmPoints()">✓ Confirmar asignación</button>
+
    <div class="actions">
     <button class="secondary" onclick="page('nfc')">📳 Enlace NFC</button>
     <button class="secondary" onclick="page('rewards')">🎁 Canjear</button>
    </div>
+
    <button class="wide secondary" style="margin-top:7px;padding:9px;font-size:12px" onclick="editStudent('${esc(s.id)}')">Editar estudiante</button>
   </div>
 
   <h2>Historial de movimientos</h2>
+
   <div class="card">
    ${movements.length?movements.map(h=>`
     <div class="history">
-     <div><strong>${esc(h.category)}</strong><br><small class="muted">${h.date?new Date(h.date).toLocaleString("es-CL"):"Fecha no disponible"}</small></div>
+     <div>
+      <strong>${esc(h.category)}</strong><br>
+      <small class="muted">${h.date?new Date(h.date).toLocaleString("es-CL"):"Fecha no disponible"}</small>
+     </div>
      <span class="${h.points<0?"negative":"positive"}">${h.points>0?"+":""}${h.points}</span>
     </div>
    `).join(""):'<div class="empty">Todavía no hay movimientos.</div>'}
   </div>`;
 }
+
 function chooseCategory(i){
  chosenCategory=db.categories[i];
  profilePage();
 }
+
 function choosePoints(n){
  chosenPoints=n;
  profilePage();
 }
+
 function confirmPoints(){
  if(!chosenCategory)return alert("Selecciona una categoría.");
+
  db.history.push({
   id:newId("h"),
   studentId:currentStudent,
@@ -407,10 +476,13 @@ function confirmPoints(){
   points:chosenPoints,
   date:new Date().toISOString()
  });
+
  const awarded=chosenPoints;
  save();
+
  chosenCategory="";
  chosenPoints=1;
+
  profilePage();
  alert("Asignación confirmada: +"+awarded+" puntos.");
 }
@@ -418,11 +490,16 @@ function confirmPoints(){
 function categoriesPage(){
  document.getElementById("app").innerHTML=`
   <h1>Motivos de asignación</h1>
-  <p class="muted">Personaliza las categorías que aparecen en el perfil de cada estudiante.</p>
+  <p class="muted">Personaliza las categorías que aparecen en cada perfil.</p>
+
   <div class="card">
-   <div class="field"><label>Nombre de la categoría</label><input id="newCategory" placeholder="Ej. Trabajo colaborativo"></div>
+   <div class="field">
+    <label>Nombre de la categoría</label>
+    <input id="newCategory" placeholder="Ej. Trabajo colaborativo">
+   </div>
    <button class="wide" onclick="addCategory()">＋ Agregar categoría</button>
   </div>
+
   ${db.categories.map((c,i)=>`
    <div class="student">
     <div class="details"><strong>${esc(c)}</strong></div>
@@ -431,30 +508,46 @@ function categoriesPage(){
    </div>
   `).join("")||'<div class="empty">No hay categorías.</div>'}`;
 }
+
 function addCategory(){
- const input=document.getElementById("newCategory");
- const name=input.value.trim();
+ const name=document.getElementById("newCategory").value.trim();
+
  if(!name)return alert("Escribe el nombre de la categoría.");
- if(db.categories.some(c=>c.toLowerCase()===name.toLowerCase()))return alert("Esa categoría ya existe.");
+
+ if(db.categories.some(c=>c.toLowerCase()===name.toLowerCase())){
+  return alert("Esa categoría ya existe.");
+ }
+
  db.categories.push(name);
  save();
  categoriesPage();
 }
+
 function renameCategory(i){
  const old=db.categories[i];
  const value=prompt("Nuevo nombre de la categoría:",old);
+
  if(value===null)return;
+
  const name=value.trim();
  if(!name)return alert("El nombre no puede quedar vacío.");
- if(db.categories.some((c,j)=>j!==i&&c.toLowerCase()===name.toLowerCase()))return alert("Ya existe una categoría con ese nombre.");
+
+ if(db.categories.some((c,j)=>j!==i&&c.toLowerCase()===name.toLowerCase())){
+  return alert("Ya existe una categoría con ese nombre.");
+ }
+
  db.categories[i]=name;
  db.history.forEach(h=>{if(h.category===old)h.category=name;});
+
  save();
  categoriesPage();
 }
+
 function deleteCategory(i){
  const name=db.categories[i];
+
  if(!confirm(`¿Eliminar "${name}"? Los registros anteriores se conservarán.`))return;
+
  db.categories.splice(i,1);
  save();
  categoriesPage();
@@ -462,65 +555,97 @@ function deleteCategory(i){
 
 function rewardsPage(){
  const reward=editingReward?db.rewards.find(r=>r.id===editingReward):null;
+
  document.getElementById("app").innerHTML=`
   <h1>🎁 Recompensas y canjes</h1>
-  <p class="muted">Define recompensas y el valor en puntos necesario para obtenerlas.</p>
+  <p class="muted">Define las recompensas y los puntos necesarios para obtenerlas.</p>
+
   <div class="card">
    <h3>${reward?"Editar recompensa":"Agregar recompensa"}</h3>
-   <div class="field"><label>Nombre de la recompensa</label><input id="rewardName" value="${esc(reward?.name||"")}" placeholder="Ej. Elegir un juego"></div>
-   <div class="field"><label>Costo en puntos</label><input id="rewardCost" type="number" min="1" step="1" value="${reward?.cost||""}" placeholder="Ej. 20"></div>
+
+   <div class="field">
+    <label>Nombre de la recompensa</label>
+    <input id="rewardName" value="${esc(reward?.name||"")}" placeholder="Ej. Elegir un juego">
+   </div>
+
+   <div class="field">
+    <label>Costo en puntos</label>
+    <input id="rewardCost" type="number" min="1" step="1" value="${reward?.cost||""}" placeholder="Ej. 20">
+   </div>
+
    <button class="wide" onclick="saveReward()">${reward?"Guardar cambios":"Agregar recompensa"}</button>
+
    ${reward?'<button class="wide secondary" style="margin-top:8px" onclick="editingReward=null;rewardsPage()">Cancelar edición</button>':""}
   </div>
+
   <h2>Catálogo de recompensas</h2>
+
   ${db.rewards.length?db.rewards.map(r=>`
    <div class="card">
     <h3>🎁 ${esc(r.name)}</h3>
     <p class="positive">${r.cost} puntos</p>
+
     <div class="actions">
      <button class="secondary" onclick="editReward('${esc(r.id)}')">Editar</button>
      <button class="danger" onclick="deleteReward('${esc(r.id)}')">Eliminar</button>
     </div>
+
     <button class="wide" style="margin-top:8px" onclick="startRedeem('${esc(r.id)}')">Canjear para estudiante</button>
    </div>
   `).join(""):'<div class="empty">Agrega tu primera recompensa.</div>'}
+
   <div id="redeemArea"></div>`;
 }
+
 function saveReward(){
  const name=document.getElementById("rewardName").value.trim();
  const cost=Number(document.getElementById("rewardCost").value);
- if(!name||!Number.isInteger(cost)||cost<1)return alert("Escribe un nombre y un costo entero mayor que cero.");
+
+ if(!name||!Number.isInteger(cost)||cost<1){
+  return alert("Escribe un nombre y un costo entero mayor que cero.");
+ }
+
  if(editingReward){
   const r=db.rewards.find(x=>x.id===editingReward);
   if(r){r.name=name;r.cost=cost;}
  }else{
   db.rewards.push({id:newId("r"),name,cost});
  }
+
  editingReward=null;
  save();
  rewardsPage();
 }
+
 function editReward(id){
  editingReward=id;
  rewardsPage();
  window.scrollTo(0,0);
 }
+
 function deleteReward(id){
  if(!confirm("¿Eliminar esta recompensa? Los canjes anteriores se conservarán."))return;
+
  db.rewards=db.rewards.filter(r=>r.id!==id);
  if(editingReward===id)editingReward=null;
+
  save();
  rewardsPage();
 }
+
 function startRedeem(rewardId){
  const r=db.rewards.find(x=>x.id===rewardId);
  if(!r)return;
+
  if(!db.students.length)return alert("Primero registra estudiantes.");
+
  const area=document.getElementById("redeemArea");
+
  area.innerHTML=`
   <div class="card">
    <h2>Confirmar canje</h2>
    <p>Recompensa: <strong>${esc(r.name)}</strong> · ${r.cost} puntos</p>
+
    <div class="field">
     <label>Seleccionar estudiante</label>
     <select id="redeemStudent">
@@ -528,18 +653,27 @@ function startRedeem(rewardId){
      ${db.students.map(s=>`<option value="${esc(s.id)}">${esc(s.name)} · Saldo: ${total(s.id)} puntos</option>`).join("")}
     </select>
    </div>
+
    <button class="wide" onclick="redeem('${esc(r.id)}')">Confirmar canje</button>
    <button class="wide secondary" style="margin-top:8px" onclick="document.getElementById('redeemArea').innerHTML=''">Cancelar</button>
   </div>`;
+
  area.scrollIntoView({behavior:"smooth",block:"start"});
 }
+
 function redeem(rewardId){
  const r=db.rewards.find(x=>x.id===rewardId);
  const select=document.getElementById("redeemStudent");
  const s=db.students.find(x=>x.id===select.value);
+
  if(!r||!s)return alert("Selecciona un estudiante.");
- if(total(s.id)<r.cost)return alert(`${s.name} no tiene suficientes puntos. Saldo: ${total(s.id)}.`);
+
+ if(total(s.id)<r.cost){
+  return alert(`${s.name} no tiene suficientes puntos. Saldo: ${total(s.id)}.`);
+ }
+
  if(!confirm(`¿Canjear "${r.name}" por ${r.cost} puntos para ${s.name}?`))return;
+
  db.redemptions.push({
   id:newId("c"),
   studentId:s.id,
@@ -548,17 +682,26 @@ function redeem(rewardId){
   cost:r.cost,
   date:new Date().toISOString()
  });
+
  save();
  alert("Canje registrado correctamente.");
  rewardsPage();
 }
 
-function baseURL(){return location.origin+location.pathname}
-function studentLink(s){return baseURL()+"?student="+encodeURIComponent(s.id)}
+function baseURL(){
+ return location.origin+location.pathname;
+}
+
+function studentLink(s){
+ return baseURL()+"?student="+encodeURIComponent(s.id);
+}
+
 function nfcPage(){
  document.getElementById("app").innerHTML=`
   <h1>Generador de enlaces NFC</h1>
-  <div class="notice">Selecciona un estudiante, copia su enlace individual y escríbelo en la tarjeta desde NFC Tools usando la opción URL/URI.</div>
+
+  <div class="notice">Selecciona un estudiante, copia su enlace y escríbelo en la tarjeta desde NFC Tools utilizando URL/URI.</div>
+
   <div class="field">
    <label>Seleccionar estudiante</label>
    <select id="nfcSelect" onchange="showNFC()">
@@ -566,6 +709,7 @@ function nfcPage(){
     ${db.students.map(s=>`<option value="${esc(s.id)}">${esc(s.name)} · ${esc(s.course||"Sin curso")}</option>`).join("")}
    </select>
   </div>
+
   <div id="nfcResult" class="card hidden">
    <h3>Enlace individual</h3>
    <div class="link" id="nfcLink"></div>
@@ -573,31 +717,40 @@ function nfcPage(){
    <button class="wide secondary" style="margin-top:8px" onclick="openNFC()">Abrir perfil</button>
    <p class="muted">Código: <span id="nfcCode"></span></p>
   </div>
+
   <h2>Estudiantes</h2>
+
   ${db.students.length?db.students.map(s=>`
    <div class="student">
     <div class="details"><strong>${esc(s.name)}</strong><small>${esc(s.course||"Sin curso")}</small></div>
     <button onclick="chooseNFC('${esc(s.id)}')">Generar enlace</button>
    </div>
   `).join(""):'<div class="empty">Primero registra estudiantes.</div>'}
-  <div class="notice">Importante: el enlace abre el perfil asociado, pero no verifica la identidad de quien lo abre. La aplicación actual utiliza datos locales del navegador.</div>`;
+
+  <div class="notice">El enlace abre el perfil asociado, pero no verifica la identidad de quien lo abre. Los datos se guardan localmente en el navegador.</div>`;
 }
+
 function chooseNFC(id){
  document.getElementById("nfcSelect").value=id;
  showNFC();
  document.getElementById("nfcResult").scrollIntoView({behavior:"smooth",block:"start"});
 }
+
 function showNFC(){
  const id=document.getElementById("nfcSelect").value;
  const s=db.students.find(x=>x.id===id);
  const box=document.getElementById("nfcResult");
+
  if(!s){box.classList.add("hidden");return;}
+
  document.getElementById("nfcLink").textContent=studentLink(s);
  document.getElementById("nfcCode").textContent=s.id;
  box.classList.remove("hidden");
 }
+
 async function copyNFC(){
  const value=document.getElementById("nfcLink").textContent;
+
  try{
   await navigator.clipboard.writeText(value);
   alert("Enlace copiado.");
@@ -605,19 +758,24 @@ async function copyNFC(){
   prompt("Copia este enlace:",value);
  }
 }
+
 function openNFC(){
  location.href=document.getElementById("nfcLink").textContent;
 }
 
 function reportsPage(){
  const sorted=[...db.students].sort((a,b)=>total(b.id)-total(a.id));
+
  document.getElementById("app").innerHTML=`
   <h1>Resumen de puntos</h1>
+
   <div class="stats">
    <div class="stat"><strong>${db.students.length}</strong><small>Estudiantes</small></div>
    <div class="stat"><strong>${totalAll()}</strong><small>Puntos disponibles totales</small></div>
   </div>
+
   <h2>Puntaje por estudiante</h2>
+
   ${sorted.length?sorted.map(s=>`
    <div class="student">
     <div class="details"><strong>${esc(s.name)}</strong><small>${esc(s.course||"Sin curso")}</small></div>
@@ -629,40 +787,56 @@ function reportsPage(){
 function toolsPage(){
  document.getElementById("app").innerHTML=`
   <h1>Herramientas y respaldo</h1>
+
   <div class="card">
    <h3>Descargar respaldo JSON</h3>
    <p class="muted">Guarda estudiantes, categorías, historial, recompensas y canjes.</p>
    <button class="wide" onclick="backup()">Descargar respaldo</button>
   </div>
+
   <div class="card">
    <h3>Restaurar respaldo JSON</h3>
    <input type="file" accept=".json,application/json" onchange="restore(event)">
   </div>
+
   <div class="card">
    <h3>Exportar estudiantes CSV</h3>
    <button class="wide secondary" onclick="exportCSV()">Exportar CSV</button>
   </div>
-  <div class="notice">Los datos se guardan en este navegador. Para usar varios dispositivos sincronizados se necesita una base de datos en la nube.</div>`;
+
+  <div class="notice">Los datos se guardan en este navegador. Para sincronizarlos entre dispositivos se necesita una base de datos en la nube.</div>`;
 }
+
 function downloadFile(content,name,type){
  const blob=new Blob([content],{type});
  const url=URL.createObjectURL(blob);
  const a=document.createElement("a");
- a.href=url;a.download=name;a.click();
+ a.href=url;
+ a.download=name;
+ a.click();
  setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
+
 function backup(){
  downloadFile(JSON.stringify(db,null,2),"edupuntos-respaldo.json","application/json");
 }
+
 function restore(event){
  const file=event.target.files[0];
  if(!file)return;
+
  const reader=new FileReader();
+
  reader.onload=()=>{
   try{
    const x=JSON.parse(reader.result);
-   if(!Array.isArray(x.students)||!Array.isArray(x.history))throw Error("Formato incorrecto");
+
+   if(!Array.isArray(x.students)||!Array.isArray(x.history)){
+    throw Error("Formato incorrecto");
+   }
+
    if(!confirm("La restauración reemplazará los datos actuales de este navegador. ¿Continuar?"))return;
+
    db={
     students:x.students,
     history:x.history||[],
@@ -670,6 +844,7 @@ function restore(event){
     rewards:x.rewards||[],
     redemptions:x.redemptions||[]
    };
+
    save();
    alert("Respaldo restaurado correctamente.");
    home();
@@ -677,20 +852,28 @@ function restore(event){
    alert("El archivo de respaldo no es válido.");
   }
  };
+
  reader.readAsText(file);
 }
+
 function exportCSV(){
  const rows=[
   ["Nombre","Curso","Código","Puntos disponibles"],
   ...db.students.map(s=>[s.name,s.course,s.id,total(s.id)])
  ];
- const csv=rows.map(row=>row.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(";")).join("\r\n");
+
+ const csv=rows.map(row=>
+  row.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(";")
+ ).join("\r\n");
+
  downloadFile("\ufeff"+csv,"edupuntos-estudiantes.csv","text/csv;charset=utf-8");
 }
 
 migrate();
 save();
+
 const initialStudent=new URLSearchParams(location.search).get("student");
+
 if(initialStudent&&db.students.some(s=>s.id===initialStudent)){
  openProfile(initialStudent);
 }else{
