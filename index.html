@@ -3,83 +3,132 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#24113f">
 <title>EduPuntos</title>
 <style>
-:root{--bg:#170b29;--panel:#24113f;--panel2:#321b50;--purple:#8b5cf6;--text:#faf7ff;--muted:#c7b8dd;--border:#4b3268;--green:#86efac;--red:#fda4af}
+:root {
+  --bg:#170b29;
+  --panel:#24113f;
+  --panel2:#321b50;
+  --purple:#8b5cf6;
+  --text:#faf7ff;
+  --muted:#c7b8dd;
+  --border:#4b3268;
+  --green:#86efac;
+  --red:#fda4af;
+}
 *{box-sizing:border-box}
+html{min-height:100%;background:var(--bg)}
 body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Arial,sans-serif}
 button,input,select,textarea{font:inherit}
-button{border:0;border-radius:12px;padding:12px;background:var(--purple);color:white;font-weight:700;cursor:pointer}
-input,select,textarea{width:100%;padding:12px;background:#180d29;color:white;border:1px solid var(--border);border-radius:10px}
-header{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:9px;padding:10px;background:var(--panel);border-bottom:1px solid var(--border)}
-header button{background:var(--panel2);border:1px solid var(--border)}
-.brand{font-weight:900;font-size:18px}.spacer{flex:1}
-main{max-width:720px;margin:auto;padding:15px 12px 45px}
-h1{font-size:25px;margin:0 0 12px}h2{font-size:20px;margin:20px 0 12px}h3{margin:0 0 10px}
-p{line-height:1.45}.muted{color:var(--muted)}.hidden{display:none!important}
-.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:12px}
-.hero{padding:21px;border-radius:19px;background:linear-gradient(135deg,#512b7b,#24113f);margin-bottom:14px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.tile{background:var(--panel);border:1px solid var(--border);min-height:100px;text-align:left;display:flex;flex-direction:column;gap:8px}
-.tile .emoji{font-size:24px}.tile small{font-weight:400;color:var(--muted)}
-.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.stat{background:var(--panel2);padding:13px;border:1px solid var(--border);border-radius:14px}
-.stat strong{display:block;font-size:24px}.stat small{color:var(--muted)}
-.field{margin:12px 0}.field label{display:block;color:var(--muted);margin-bottom:6px;font-size:14px}
-.row{display:flex;gap:8px;align-items:center}.grow{flex:1;min-width:0}
-.student{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:11px;margin-bottom:9px}
-.avatar{background:#4c2d70;border-radius:12px;padding:12px;font-size:20px}
-.details{flex:1;min-width:0;overflow-wrap:anywhere}.details small{display:block;color:var(--muted);margin-top:4px}
-.student button{padding:9px;font-size:13px}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.actions button{flex:1}
+button{border:0;border-radius:11px;padding:11px;background:var(--purple);color:white;font-weight:700;cursor:pointer}
+input,select,textarea{width:100%;padding:11px;background:#180d29;color:white;border:1px solid var(--border);border-radius:10px}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #d8b4fe;outline-offset:2px}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;padding:9px;background:var(--panel);border-bottom:1px solid var(--border)}
+header button{background:var(--panel2);border:1px solid var(--border);padding:9px 11px}
+.brand{font-weight:900;font-size:17px}
+.spacer{flex:1}
+main{width:100%;max-width:720px;margin:auto;padding:10px 10px 25px}
+h1{font-size:23px;margin:0 0 10px}
+h2{font-size:18px;margin:15px 0 9px;line-height:1.25}
+h3{font-size:16px;margin:0 0 8px}
+p{line-height:1.4}
+.muted{color:var(--muted)}
+.hidden{display:none!important}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:12px;margin-bottom:10px}
+.hero{padding:18px;border-radius:17px;background:linear-gradient(135deg,#512b7b,#24113f);margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.tile{background:var(--panel);border:1px solid var(--border);min-height:85px;text-align:left;display:flex;flex-direction:column;gap:6px;padding:11px}
+.tile .emoji{font-size:22px}
+.tile small{font-weight:400;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.stat{background:var(--panel2);padding:9px 10px;border:1px solid var(--border);border-radius:12px;min-width:0}
+.stat strong{display:block;font-size:20px;line-height:1.2}
+.stat small{color:var(--muted);font-size:12px;line-height:1.25}
+.field{margin:11px 0}
+.field label{display:block;color:var(--muted);margin-bottom:5px;font-size:13px}
+.row{display:flex;gap:8px;align-items:center}
+.grow{flex:1;min-width:0}
+.student{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:9px;margin-bottom:8px}
+.avatar{background:#4c2d70;border-radius:12px;padding:10px;font-size:19px}
+.details{flex:1;min-width:0;overflow-wrap:anywhere}
+.details small{display:block;color:var(--muted);margin-top:3px;font-size:12px}
+.student button{padding:8px;font-size:12px}
+.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+.actions button{flex:1;padding:9px 6px;font-size:12px}
 .secondary{background:var(--panel2);border:1px solid var(--border)}
-.danger{background:#9f2946}.good{background:#166534}
+.danger{background:#9f2946}
 .wide{width:100%}
-.category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.category{background:var(--panel2);border:1px solid var(--border);min-height:57px}
+.category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.category{background:var(--panel2);border:1px solid var(--border);min-height:40px;padding:8px 5px;font-size:12px;line-height:1.2;border-radius:10px}
 .category.active,.points button.active{background:#6d28d9;border:2px solid #d8b4fe}
-.points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.points button{background:var(--panel2);border:1px solid var(--border)}
-.points strong{display:block;font-size:24px}
-.confirm{width:100%;padding:16px;margin-top:13px}
-.profile{text-align:center;padding:10px 0 17px}.profile h1{overflow-wrap:anywhere;margin:8px 0}
-.link{overflow-wrap:anywhere;background:#180d29;padding:12px;border:1px solid var(--border);border-radius:10px;margin:10px 0}
-.history{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--border)}
-.positive{color:var(--green);font-weight:800}.negative{color:var(--red);font-weight:800}
-.notice{background:var(--panel2);padding:12px;border-radius:12px;color:var(--muted);font-size:14px}
-.empty{text-align:center;padding:20px;color:var(--muted)}
+.points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.points button{background:var(--panel2);border:1px solid var(--border);padding:8px 4px;font-size:12px}
+.points strong{display:block;font-size:20px;line-height:1.2}
+.confirm{width:100%;padding:12px;margin-top:10px;font-size:14px}
+.profile{text-align:center;padding:2px 0 8px}
+.profile h1{font-size:clamp(21px,5vw,27px);line-height:1.15;margin:0 0 5px;overflow-wrap:anywhere}
+.profile p{font-size:clamp(12px,3.4vw,15px);line-height:1.3;margin:0 0 10px}
+.profile .avatar{display:none}
+.link{overflow-wrap:anywhere;background:#180d29;padding:11px;border:1px solid var(--border);border-radius:10px;margin:9px 0}
+.history{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.positive{color:var(--green);font-weight:800}
+.negative{color:var(--red);font-weight:800}
+.notice{background:var(--panel2);padding:11px;border-radius:11px;color:var(--muted);font-size:13px;line-height:1.4}
+.empty{text-align:center;padding:18px;color:var(--muted)}
 #menu{position:fixed;inset:0;background:#0009;z-index:10}
-#menu nav{width:min(310px,86vw);height:100%;background:var(--panel);padding:17px;overflow:auto}
+#menu nav{width:min(310px,86vw);height:100%;background:var(--panel);padding:16px;overflow:auto}
 #menu nav button{display:block;width:100%;text-align:left;margin:7px 0;background:var(--panel2)}
 #menu nav .close{text-align:center}
-.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:22px}
-@media(max-width:360px){header{gap:5px;padding:8px}.brand{font-size:15px}header button{padding:9px 7px}main{padding:10px}}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:20px}
+@media(max-width:480px){
+  header{gap:6px;padding:8px}
+  header button{padding:8px}
+  .brand{font-size:15px}
+  main{padding:8px 7px 18px}
+  .card{padding:9px;border-radius:13px}
+  .profile{padding:1px 0 7px}
+  .profile h1{font-size:23px}
+  .profile p{font-size:12px}
+  .stat strong{font-size:19px}
+  .stat small{font-size:11px}
+  #app h2{font-size:16px;margin:12px 0 8px}
+  .category{min-height:38px;font-size:11px;padding:7px 3px}
+  .points button{font-size:11px}
+  .points strong{font-size:19px}
+  .confirm{padding:11px}
+}
 </style>
 </head>
 <body>
 <header>
-  <div class="brand">EduPuntos</div><div class="spacer"></div>
+  <button onclick="home()">⌂ Inicio</button>
+  <div class="brand">💜 EduPuntos</div>
+  <div class="spacer"></div>
   <button onclick="menu(true)" aria-label="Abrir menú">☰</button>
 </header>
+
 <div id="menu" class="hidden" onclick="if(event.target===this)menu(false)">
   <nav>
     <button class="close" onclick="menu(false)">✕ Cerrar</button>
-    <h2>EduPuntos</h2>
-    <button onclick="home()">⌾ Inicio</button>
-    <button onclick="page('students')">Estudiantes</button>
-    <button onclick="page('newStudent')">Ingresar estudiante</button>
-    <button onclick="page('categories')">Motivos de asignación</button>
-    <button onclick="page('rewards')">Recompensas y canjes</button>
-    <button onclick="page('nfc')">Generador de enlaces NFC</button>
-    <button onclick="page('reports')">Resumen de puntos</button>
-    <button onclick="page('tools')">Herramientas y respaldo</button>
+    <h2>💜 EduPuntos</h2>
+    <button onclick="home()">⌂ Inicio</button>
+    <button onclick="page('students')">👥 Estudiantes</button>
+    <button onclick="page('newStudent')">＋ Ingresar estudiante</button>
+    <button onclick="page('categories')">🏷️ Motivos de asignación</button>
+    <button onclick="page('rewards')">🎁 Recompensas y canjes</button>
+    <button onclick="page('nfc')">📳 Generador de enlaces NFC</button>
+    <button onclick="page('reports')">📊 Resumen de puntos</button>
+    <button onclick="page('tools')">⚙️ Herramientas y respaldo</button>
   </nav>
 </div>
+
 <main id="app"></main>
+
 <script>
 const STORAGE_KEY="edupuntos_mobile_v2";
+const OLD_KEY="edupuntos_datos_v1";
 const DEFAULT_CATEGORIES=[
  "Trabajo en clases","Responsabilidad","Convivencia","Participación",
  "Esfuerzo","Ayuda a otros","Actividad completada","Otra categoría"
@@ -89,53 +138,109 @@ const DEFAULT_REWARDS=[
  {id:"r2",name:"Ser ayudante del día",cost:20},
  {id:"r3",name:"Elegir un juego",cost:30}
 ];
-let db={students:[],history:[],categories:DEFAULT_CATEGORIES,rewards:DEFAULT_REWARDS,redemptions:[]};
-let currentStudent=null,chosenCategory="",chosenPoints=1,editingStudent=null,editingReward=null;
+
+let db={
+ students:[],
+ history:[],
+ categories:[...DEFAULT_CATEGORIES],
+ rewards:DEFAULT_REWARDS.map(r=>({...r})),
+ redemptions:[]
+};
+let currentStudent=null;
+let chosenCategory="";
+let chosenPoints=1;
+let editingStudent=null;
+let editingReward=null;
 
 function migrate(){
  try{
-  const old=JSON.parse(localStorage.getItem(STORAGE_KEY));
-  if(old && Array.isArray(old.students)){
-   db={...db,...old};
-   db.categories=Array.isArray(db.categories)?db.categories:DEFAULT_CATEGORIES;
-   db.rewards=Array.isArray(db.rewards)?db.rewards:DEFAULT_REWARDS;
+  const current=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");
+  if(current && Array.isArray(current.students)){
+   db={...db,...current};
+   db.categories=Array.isArray(db.categories)?db.categories:[...DEFAULT_CATEGORIES];
+   db.rewards=Array.isArray(db.rewards)?db.rewards:[];
    db.redemptions=Array.isArray(db.redemptions)?db.redemptions:[];
-  }else{
-   // Importa automáticamente el formato de la versión anterior de EduPuntos.
-   const prior=JSON.parse(localStorage.getItem("edupuntos_datos_v1")||"null");
-   if(prior&&Array.isArray(prior.estudiantes)){
-    db.students=prior.estudiantes.map(s=>({id:s.id,name:s.nombre||s.name,course:s.curso||s.course||""}));
-    db.history=(prior.historial||[]).map(h=>({id:h.id,studentId:h.estudianteId,category:h.categoria,points:h.puntos,date:h.fecha}));
-   }else{
-    const previous=JSON.parse(localStorage.getItem("edupuntos_mobile_v1")||"null");
-    if(previous&&Array.isArray(previous.students)){db.students=previous.students;db.history=previous.history||[];}
-   }
+   db.history=Array.isArray(db.history)?db.history:[];
+   return;
   }
- }catch(e){}
+
+  const old=JSON.parse(localStorage.getItem(OLD_KEY)||"null");
+  if(old&&Array.isArray(old.estudiantes)){
+   db.students=old.estudiantes.map(s=>({
+    id:String(s.id),
+    name:s.nombre||s.name||"",
+    course:s.curso||s.course||""
+   }));
+   db.history=(old.historial||[]).map(h=>({
+    id:h.id||"h-"+Math.random().toString(36).slice(2),
+    studentId:String(h.estudianteId??h.studentId??""),
+    category:h.categoria||h.category||"Asignación anterior",
+    points:Number(h.puntos??h.points??0),
+    date:h.fecha||h.date||new Date().toISOString()
+   }));
+  }
+ }catch(e){
+  console.error("No se pudieron cargar los datos",e);
+ }
 }
-function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(db))}
-function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function menu(open){document.getElementById("menu").classList.toggle("hidden",!open)}
-function home(){menu(false);page("home")}
-function page(name){menu(false);const app=document.getElementById("app");
+
+function save(){
+ localStorage.setItem(STORAGE_KEY,JSON.stringify(db));
+}
+function esc(value){
+ return String(value??"").replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
+}
+function newId(prefix="ep"){
+ return prefix+"-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,7);
+}
+function menu(open){
+ document.getElementById("menu").classList.toggle("hidden",!open);
+}
+function home(){
+ menu(false);
+ page("home");
+}
+function page(name){
+ menu(false);
+ const app=document.getElementById("app");
+
  if(name==="home"){
   const id=new URLSearchParams(location.search).get("student");
-  if(id&&db.students.some(s=>s.id===id)){openProfile(id);return}
-  app.innerHTML=`<section class="hero"><h1>EduPuntos 💜</h1><p class="muted">Reconocer el esfuerzo, celebrar los avances y aprender jugando.</p></section>
-  <div class="stats"><div class="stat"><strong>${db.students.length}</strong><small>Estudiantes</small></div><div class="stat"><strong>${totalAll()}</strong><small>Puntos disponibles totales</small></div></div>
-  <h2>Accesos rápidos</h2><div class="grid">
-  <button class="tile" onclick="page('students')"><span class="emoji"></span>Estudiantes<small>Ver, editar y administrar</small></button>
-  <button class="tile" onclick="page('newStudent')"><span class="emoji"></span>Ingresar estudiante<small>Crear perfil</small></button>
-  <button class="tile" onclick="page('nfc')"><span class="emoji"></span>Enlaces NFC<small>Generar enlace individual</small></button>
-  <button class="tile" onclick="page('categories')"><span class="emoji"></span>Categorías<small>Personalizar motivos</small></button>
-  <button class="tile" onclick="page('rewards')"><span class="emoji"></span>Recompensas<small>Canjear puntos</small></button>
-  <button class="tile" onclick="page('reports')"><span class="emoji"></span>Resumen<small>Revisar movimientos</small></button></div>
-  <div class="footer">EduPuntos · Aplicación educativa móvil</div>`;
+  if(id&&db.students.some(s=>s.id===id)){
+   openProfile(id);
+   return;
+  }
+  app.innerHTML=`
+   <section class="hero">
+    <h1>EduPuntos 💜</h1>
+    <p class="muted">Reconocer el esfuerzo, celebrar los avances y aprender jugando.</p>
+   </section>
+   <div class="stats">
+    <div class="stat"><strong>${db.students.length}</strong><small>Estudiantes</small></div>
+    <div class="stat"><strong>${totalAll()}</strong><small>Puntos disponibles totales</small></div>
+   </div>
+   <h2>Accesos rápidos</h2>
+   <div class="grid">
+    <button class="tile" onclick="page('students')"><span class="emoji">👥</span>Estudiantes<small>Ver y administrar perfiles</small></button>
+    <button class="tile" onclick="page('newStudent')"><span class="emoji">➕</span>Ingresar estudiante<small>Crear perfil</small></button>
+    <button class="tile" onclick="page('nfc')"><span class="emoji">📳</span>Enlaces NFC<small>Crear enlaces individuales</small></button>
+    <button class="tile" onclick="page('categories')"><span class="emoji">🏷️</span>Categorías<small>Personalizar motivos</small></button>
+    <button class="tile" onclick="page('rewards')"><span class="emoji">🎁</span>Recompensas<small>Administrar y canjear</small></button>
+    <button class="tile" onclick="page('reports')"><span class="emoji">📊</span>Resumen<small>Consultar puntajes</small></button>
+   </div>
+   <div class="footer">EduPuntos · Aplicación educativa</div>`;
  }
+
  if(name==="students"){
-  app.innerHTML=`<h1>Estudiantes</h1><button class="wide" onclick="page('newStudent')"> Ingresar estudiante</button>
-  <div class="field"><label>Buscar por nombre o curso</label><input id="search" placeholder="Buscar..." oninput="filterStudents()"></div><div id="studentList">${studentRows(db.students)}</div>`;
+  app.innerHTML=`
+   <h1>Estudiantes</h1>
+   <button class="wide" onclick="page('newStudent')">＋ Ingresar estudiante</button>
+   <div class="field"><label>Buscar por nombre o curso</label><input id="search" placeholder="Buscar..." oninput="filterStudents()"></div>
+   <div id="studentList">${studentRows(db.students)}</div>`;
  }
+
  if(name==="newStudent")studentForm();
  if(name==="categories")categoriesPage();
  if(name==="rewards")rewardsPage();
@@ -143,150 +248,454 @@ function page(name){menu(false);const app=document.getElementById("app");
  if(name==="reports")reportsPage();
  if(name==="tools")toolsPage();
 }
-function total(id){return db.history.filter(h=>h.studentId===id).reduce((sum,h)=>sum+h.points,0)-db.redemptions.filter(r=>r.studentId===id).reduce((sum,r)=>sum+r.cost,0)}
-function totalAll(){return db.students.reduce((sum,s)=>sum+total(s.id),0)}
+
+function total(id){
+ const earned=db.history.filter(h=>h.studentId===id).reduce((sum,h)=>sum+Number(h.points||0),0);
+ const spent=db.redemptions.filter(r=>r.studentId===id).reduce((sum,r)=>sum+Number(r.cost||0),0);
+ return earned-spent;
+}
+function totalAll(){
+ return db.students.reduce((sum,s)=>sum+total(s.id),0);
+}
 function studentRows(list){
  if(!list.length)return '<div class="empty">No hay estudiantes registrados.</div>';
- return list.map(s=>`<div class="student"><div class="avatar"></div><div class="details"><strong>${esc(s.name)}</strong><small>${esc(s.course||"Sin curso")} · ${total(s.id)} puntos</small></div><button onclick="openProfile('${s.id}')">Ver</button><button class="secondary" onclick="editStudent('${s.id}')">Editar</button></div>`).join("");
+ return list.map(s=>`
+  <div class="student">
+   <div class="avatar">👤</div>
+   <div class="details"><strong>${esc(s.name)}</strong><small>${esc(s.course||"Sin curso")} · ${total(s.id)} puntos</small></div>
+   <button onclick="openProfile('${esc(s.id)}')">Ver</button>
+   <button class="secondary" onclick="editStudent('${esc(s.id)}')">Editar</button>
+  </div>`).join("");
 }
-function filterStudents(){const q=document.getElementById("search").value.toLowerCase();document.getElementById("studentList").innerHTML=studentRows(db.students.filter(s=>(s.name+" "+s.course).toLowerCase().includes(q)))}
+function filterStudents(){
+ const q=document.getElementById("search").value.toLowerCase();
+ document.getElementById("studentList").innerHTML=studentRows(
+  db.students.filter(s=>(s.name+" "+s.course).toLowerCase().includes(q))
+ );
+}
+
 function studentForm(id=null){
  editingStudent=id;
  const s=id?db.students.find(x=>x.id===id):null;
- document.getElementById("app").innerHTML=`<h1>${s?"Editar estudiante":"Ingresar estudiante"}</h1><div class="card">
- <div class="field"><label>Nombre y apellido</label><input id="studentName" value="${esc(s?.name||"")}" placeholder="Nombre del estudiante"></div>
- <div class="field"><label>Curso</label><input id="studentCourse" value="${esc(s?.course||"")}" placeholder="Ej. 6° Básico"></div>
- ${s?`<div class="notice">Código del estudiante: ${esc(s.id)}. Se conserva para no romper el enlace NFC existente.</div>`:""}
- <button class="wide" onclick="saveStudent()">${s?"Guardar cambios":"Guardar estudiante"}</button>
- <button class="wide secondary" style="margin-top:8px" onclick="page('students')">Cancelar</button>
- ${s?`<button class="wide danger" style="margin-top:8px" onclick="deleteStudent('${s.id}')">Eliminar estudiante</button>`:""}</div>`;
+ document.getElementById("app").innerHTML=`
+  <h1>${s?"Editar estudiante":"Ingresar estudiante"}</h1>
+  <div class="card">
+   <div class="field"><label>Nombre y apellido</label><input id="studentName" value="${esc(s?.name||"")}" placeholder="Nombre del estudiante"></div>
+   <div class="field"><label>Curso</label><input id="studentCourse" value="${esc(s?.course||"")}" placeholder="Ej. 6° Básico"></div>
+   ${s?`<div class="notice">Código NFC: ${esc(s.id)}. Se conservará al editar.</div>`:""}
+   <button class="wide" onclick="saveStudent()">${s?"Guardar cambios":"Guardar estudiante"}</button>
+   <button class="wide secondary" style="margin-top:8px" onclick="page('students')">Cancelar</button>
+   ${s?`<button class="wide danger" style="margin-top:8px" onclick="deleteStudent('${esc(s.id)}')">Eliminar estudiante</button>`:""}
+  </div>`;
 }
-function editStudent(id){studentForm(id)}
+function editStudent(id){
+ studentForm(id);
+}
 function saveStudent(){
- const name=document.getElementById("studentName").value.trim(),course=document.getElementById("studentCourse").value.trim();
+ const name=document.getElementById("studentName").value.trim();
+ const course=document.getElementById("studentCourse").value.trim();
  if(!name)return alert("Escribe el nombre del estudiante.");
- if(editingStudent){const s=db.students.find(x=>x.id===editingStudent);if(s){s.name=name;s.course=course}}
- else db.students.push({id:"ep-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,7),name,course});
- save();editingStudent=null;page("students");
+
+ if(editingStudent){
+  const s=db.students.find(x=>x.id===editingStudent);
+  if(s){s.name=name;s.course=course;}
+ }else{
+  db.students.push({id:newId(),name,course});
+ }
+ save();
+ editingStudent=null;
+ page("students");
 }
 function deleteStudent(id){
- const s=db.students.find(x=>x.id===id);if(!s)return;
- if(!confirm(`¿Eliminar a ${s.name}? Se eliminará también su historial y sus canjes.`))return;
+ const s=db.students.find(x=>x.id===id);
+ if(!s)return;
+ if(!confirm(`¿Eliminar a ${s.name}? También se eliminarán su historial y sus canjes.`))return;
  db.students=db.students.filter(x=>x.id!==id);
  db.history=db.history.filter(x=>x.studentId!==id);
  db.redemptions=db.redemptions.filter(x=>x.studentId!==id);
- save();page("students");
+ save();
+ page("students");
 }
-function openProfile(id){currentStudent=id;chosenCategory="";chosenPoints=1;profilePage()}
+
+function openProfile(id){
+ currentStudent=id;
+ chosenCategory="";
+ chosenPoints=1;
+ profilePage();
+}
 function profilePage(){
- const s=db.students.find(x=>x.id===currentStudent);if(!s)return page("students");
+ const s=db.students.find(x=>x.id===currentStudent);
+ if(!s){page("students");return;}
+
  const history=db.history.filter(h=>h.studentId===s.id);
- const red=db.redemptions.filter(r=>r.studentId===s.id);
- document.getElementById("app").innerHTML=`<div class="card">
- <div class="profile"><div class="avatar" style="display:inline-block;font-size:28px"/div><h1>${esc(s.name)}</h1><p class="muted">${esc(s.course||"Sin curso")} · ${total(s.id)} puntos disponibles</p></div>
- <div class="stats"><div class="stat"><strong>${total(s.id)}</strong><small>Puntos disponibles</small></div><div class="stat"><strong>${history.length}</strong><small>Asignaciones</small></div></div>
- <h2>1. Categorías de asignación</h2><div class="category-grid">${db.categories.map((c,i)=>`<button class="category ${chosenCategory===c?"active":""}" onclick="chooseCategory(${i})">${esc(c)}</button>`).join("")}</div>
- <h2>2. Puntos a entregar</h2><div class="points">${[1,2,3].map(n=>`<button class="${chosenPoints===n?"active":""}" onclick="choosePoints(${n})"><strong>+${n}</strong>${n===1?"punto":"puntos"}</button>`).join("")}</div>
- <button class="confirm" onclick="confirmPoints()">✓ Confirmar asignación</button>
- <div class="actions"><button class="secondary" onclick="page('nfc')">📳 Enlace NFC</button><button class="secondary" onclick="page('rewards')">🎁 Canjear puntos</button></div>
- <button class="wide secondary" style="margin-top:9px" onclick="editStudent('${s.id}')">Editar estudiante</button></div>
- <h2>Historial de movimientos</h2><div class="card">${history.length||red.length?[...history.map(h=>({...h,type:"earn"})),...red.map(r=>({...r,type:"redeem",points:-r.cost,category:"Canje: "+r.rewardName,date:r.date}))].sort((a,b)=>new Date(b.date)-new Date(a.date)).map(h=>`<div class="history"><div><strong>${esc(h.category||h.rewardName)}</strong><br><small class="muted">${new Date(h.date).toLocaleString("es-CL")}</small></div><span class="${h.points<0?"negative":"positive"}">${h.points>0?"+":""}${h.points}</span></div>`).join(""):'<div class="empty">Todavía no hay movimientos.</div>'}</div>`;
+ const redemptions=db.redemptions.filter(r=>r.studentId===s.id);
+ const movements=[
+  ...history.map(h=>({
+   category:h.category,
+   points:Number(h.points),
+   date:h.date,
+   type:"earn"
+  })),
+  ...redemptions.map(r=>({
+   category:"Canje: "+r.rewardName,
+   points:-Number(r.cost),
+   date:r.date,
+   type:"redeem"
+  }))
+ ].sort((a,b)=>new Date(b.date)-new Date(a.date));
+
+ document.getElementById("app").innerHTML=`
+  <div class="card">
+   <div class="profile">
+    <h1>${esc(s.name)}</h1>
+    <p class="muted">${esc(s.course||"Sin curso")} · ${total(s.id)} puntos disponibles</p>
+   </div>
+
+   <div class="stats">
+    <div class="stat"><strong>${total(s.id)}</strong><small>Puntos disponibles</small></div>
+    <div class="stat"><strong>${history.length}</strong><small>Asignaciones</small></div>
+   </div>
+
+   <h2>1. Categorías de asignación</h2>
+   <div class="category-grid">
+    ${db.categories.map((c,i)=>`
+     <button class="category ${chosenCategory===c?"active":""}" onclick="chooseCategory(${i})">${esc(c)}</button>
+    `).join("")}
+   </div>
+
+   <h2>2. Puntos a entregar</h2>
+   <div class="points">
+    ${[1,2,3].map(n=>`
+     <button class="${chosenPoints===n?"active":""}" onclick="choosePoints(${n})">
+      <strong>+${n}</strong>${n===1?"punto":"puntos"}
+     </button>
+    `).join("")}
+   </div>
+
+   <button class="confirm" onclick="confirmPoints()">✓ Confirmar asignación</button>
+   <div class="actions">
+    <button class="secondary" onclick="page('nfc')">📳 Enlace NFC</button>
+    <button class="secondary" onclick="page('rewards')">🎁 Canjear</button>
+   </div>
+   <button class="wide secondary" style="margin-top:7px;padding:9px;font-size:12px" onclick="editStudent('${esc(s.id)}')">Editar estudiante</button>
+  </div>
+
+  <h2>Historial de movimientos</h2>
+  <div class="card">
+   ${movements.length?movements.map(h=>`
+    <div class="history">
+     <div><strong>${esc(h.category)}</strong><br><small class="muted">${h.date?new Date(h.date).toLocaleString("es-CL"):"Fecha no disponible"}</small></div>
+     <span class="${h.points<0?"negative":"positive"}">${h.points>0?"+":""}${h.points}</span>
+    </div>
+   `).join(""):'<div class="empty">Todavía no hay movimientos.</div>'}
+  </div>`;
 }
-function chooseCategory(i){chosenCategory=db.categories[i];profilePage()}
-function choosePoints(n){chosenPoints=n;profilePage()}
+function chooseCategory(i){
+ chosenCategory=db.categories[i];
+ profilePage();
+}
+function choosePoints(n){
+ chosenPoints=n;
+ profilePage();
+}
 function confirmPoints(){
  if(!chosenCategory)return alert("Selecciona una categoría.");
- db.history.push({id:"h-"+Date.now(),studentId:currentStudent,category:chosenCategory,points:chosenPoints,date:new Date().toISOString()});
- const n=chosenPoints;save();chosenCategory="";chosenPoints=1;profilePage();alert("Asignación confirmada: +"+n+" puntos.");
+ db.history.push({
+  id:newId("h"),
+  studentId:currentStudent,
+  category:chosenCategory,
+  points:chosenPoints,
+  date:new Date().toISOString()
+ });
+ const awarded=chosenPoints;
+ save();
+ chosenCategory="";
+ chosenPoints=1;
+ profilePage();
+ alert("Asignación confirmada: +"+awarded+" puntos.");
 }
+
 function categoriesPage(){
- document.getElementById("app").innerHTML=`<h1>Motivos de asignación</h1><p class="muted">Crea, renombra o elimina las categorías que aparecen en los perfiles.</p>
- <div class="card"><div class="field"><label>Nombre de la categoría</label><input id="newCategory" placeholder="Ej. Trabajo colaborativo"></div><button class="wide" onclick="addCategory()">＋ Agregar categoría</button></div>
- <div class="stack">${db.categories.map((c,i)=>`<div class="student"><div class="details"><strong>${esc(c)}</strong></div><button class="secondary" onclick="renameCategory(${i})">Renombrar</button><button class="danger" onclick="deleteCategory(${i})">Eliminar</button></div>`).join("")||'<div class="empty">No hay categorías.</div>'}</div>`;
+ document.getElementById("app").innerHTML=`
+  <h1>Motivos de asignación</h1>
+  <p class="muted">Personaliza las categorías que aparecen en el perfil de cada estudiante.</p>
+  <div class="card">
+   <div class="field"><label>Nombre de la categoría</label><input id="newCategory" placeholder="Ej. Trabajo colaborativo"></div>
+   <button class="wide" onclick="addCategory()">＋ Agregar categoría</button>
+  </div>
+  ${db.categories.map((c,i)=>`
+   <div class="student">
+    <div class="details"><strong>${esc(c)}</strong></div>
+    <button class="secondary" onclick="renameCategory(${i})">Editar</button>
+    <button class="danger" onclick="deleteCategory(${i})">Eliminar</button>
+   </div>
+  `).join("")||'<div class="empty">No hay categorías.</div>'}`;
 }
-function addCategory(){const input=document.getElementById("newCategory"),name=input.value.trim();if(!name)return alert("Escribe un nombre.");if(db.categories.some(c=>c.toLowerCase()===name.toLowerCase()))return alert("Esa categoría ya existe.");db.categories.push(name);save();categoriesPage()}
-function renameCategory(i){const old=db.categories[i],name=prompt("Nuevo nombre para la categoría:",old);if(name===null)return;const clean=name.trim();if(!clean)return alert("El nombre no puede quedar vacío.");db.categories[i]=clean;db.history.forEach(h=>{if(h.category===old)h.category=clean});save();categoriesPage()}
-function deleteCategory(i){const name=db.categories[i];if(!confirm(`¿Eliminar la categoría "${name}"? El historial existente se conservará.`))return;db.categories.splice(i,1);save();categoriesPage()}
+function addCategory(){
+ const input=document.getElementById("newCategory");
+ const name=input.value.trim();
+ if(!name)return alert("Escribe el nombre de la categoría.");
+ if(db.categories.some(c=>c.toLowerCase()===name.toLowerCase()))return alert("Esa categoría ya existe.");
+ db.categories.push(name);
+ save();
+ categoriesPage();
+}
+function renameCategory(i){
+ const old=db.categories[i];
+ const value=prompt("Nuevo nombre de la categoría:",old);
+ if(value===null)return;
+ const name=value.trim();
+ if(!name)return alert("El nombre no puede quedar vacío.");
+ if(db.categories.some((c,j)=>j!==i&&c.toLowerCase()===name.toLowerCase()))return alert("Ya existe una categoría con ese nombre.");
+ db.categories[i]=name;
+ db.history.forEach(h=>{if(h.category===old)h.category=name;});
+ save();
+ categoriesPage();
+}
+function deleteCategory(i){
+ const name=db.categories[i];
+ if(!confirm(`¿Eliminar "${name}"? Los registros anteriores se conservarán.`))return;
+ db.categories.splice(i,1);
+ save();
+ categoriesPage();
+}
+
 function rewardsPage(){
- document.getElementById("app").innerHTML=`<h1>🎁 Recompensas y canjes</h1><p class="muted">Los estudiantes pueden utilizar sus puntos para obtener las recompensas que definas.</p>
- <div class="card"><h3>${editingReward?"Editar recompensa":"Agregar recompensa"}</h3>
- <div class="field"><label>Nombre de la recompensa</label><input id="rewardName" placeholder="Ej. Elegir un juego" value="${editingReward?esc(db.rewards.find(r=>r.id===editingReward)?.name||""):""}"></div>
- <div class="field"><label>Costo en puntos</label><input id="rewardCost" type="number" min="1" step="1" placeholder="Ej. 20" value="${editingReward?db.rewards.find(r=>r.id===editingReward)?.cost||"":""}"></div>
- <button class="wide" onclick="saveReward()">${editingReward?"Guardar cambios":"Agregar recompensa"}</button>
- ${editingReward?'<button class="wide secondary" style="margin-top:8px" onclick="editingReward=null;rewardsPage()">Cancelar edición</button>':""}</div>
- <h2>Catálogo de recompensas</h2>
- ${db.rewards.length?db.rewards.map(r=>`<div class="card"><div class="row"><div class="grow"><h3>🎁 ${esc(r.name)}</h3><span class="positive">${r.cost} puntos</span></div><button class="secondary" onclick="editReward('${r.id}')">Editar</button><button class="danger" onclick="deleteReward('${r.id}')">Eliminar</button></div><button class="wide" style="margin-top:12px" onclick="startRedeem('${r.id}')">Canjear para estudiante</button></div>`).join(""):'<div class="empty">Agrega tu primera recompensa.</div>'}
- <div id="redeemArea"></div>`;
+ const reward=editingReward?db.rewards.find(r=>r.id===editingReward):null;
+ document.getElementById("app").innerHTML=`
+  <h1>🎁 Recompensas y canjes</h1>
+  <p class="muted">Define recompensas y el valor en puntos necesario para obtenerlas.</p>
+  <div class="card">
+   <h3>${reward?"Editar recompensa":"Agregar recompensa"}</h3>
+   <div class="field"><label>Nombre de la recompensa</label><input id="rewardName" value="${esc(reward?.name||"")}" placeholder="Ej. Elegir un juego"></div>
+   <div class="field"><label>Costo en puntos</label><input id="rewardCost" type="number" min="1" step="1" value="${reward?.cost||""}" placeholder="Ej. 20"></div>
+   <button class="wide" onclick="saveReward()">${reward?"Guardar cambios":"Agregar recompensa"}</button>
+   ${reward?'<button class="wide secondary" style="margin-top:8px" onclick="editingReward=null;rewardsPage()">Cancelar edición</button>':""}
+  </div>
+  <h2>Catálogo de recompensas</h2>
+  ${db.rewards.length?db.rewards.map(r=>`
+   <div class="card">
+    <h3>🎁 ${esc(r.name)}</h3>
+    <p class="positive">${r.cost} puntos</p>
+    <div class="actions">
+     <button class="secondary" onclick="editReward('${esc(r.id)}')">Editar</button>
+     <button class="danger" onclick="deleteReward('${esc(r.id)}')">Eliminar</button>
+    </div>
+    <button class="wide" style="margin-top:8px" onclick="startRedeem('${esc(r.id)}')">Canjear para estudiante</button>
+   </div>
+  `).join(""):'<div class="empty">Agrega tu primera recompensa.</div>'}
+  <div id="redeemArea"></div>`;
 }
 function saveReward(){
- const name=document.getElementById("rewardName").value.trim(),cost=Number(document.getElementById("rewardCost").value);
- if(!name||!Number.isInteger(cost)||cost<1)return alert("Ingresa un nombre y un costo de al menos 1 punto.");
- if(editingReward){const r=db.rewards.find(x=>x.id===editingReward);if(r){r.name=name;r.cost=cost}}
- else db.rewards.push({id:"r-"+Date.now(),name,cost});
- editingReward=null;save();rewardsPage();
+ const name=document.getElementById("rewardName").value.trim();
+ const cost=Number(document.getElementById("rewardCost").value);
+ if(!name||!Number.isInteger(cost)||cost<1)return alert("Escribe un nombre y un costo entero mayor que cero.");
+ if(editingReward){
+  const r=db.rewards.find(x=>x.id===editingReward);
+  if(r){r.name=name;r.cost=cost;}
+ }else{
+  db.rewards.push({id:newId("r"),name,cost});
+ }
+ editingReward=null;
+ save();
+ rewardsPage();
 }
-function editReward(id){editingReward=id;rewardsPage();window.scrollTo(0,0)}
-function deleteReward(id){if(!confirm("¿Eliminar esta recompensa del catálogo? Los canjes anteriores se conservan."))return;db.rewards=db.rewards.filter(r=>r.id!==id);save();rewardsPage()}
+function editReward(id){
+ editingReward=id;
+ rewardsPage();
+ window.scrollTo(0,0);
+}
+function deleteReward(id){
+ if(!confirm("¿Eliminar esta recompensa? Los canjes anteriores se conservarán."))return;
+ db.rewards=db.rewards.filter(r=>r.id!==id);
+ if(editingReward===id)editingReward=null;
+ save();
+ rewardsPage();
+}
 function startRedeem(rewardId){
- const r=db.rewards.find(x=>x.id===rewardId);if(!r)return;
+ const r=db.rewards.find(x=>x.id===rewardId);
+ if(!r)return;
+ if(!db.students.length)return alert("Primero registra estudiantes.");
  const area=document.getElementById("redeemArea");
- area.innerHTML=`<div class="card"><h2>Confirmar canje</h2><p>Recompensa: <strong>${esc(r.name)}</strong> · ${r.cost} puntos</p><div class="field"><label>Seleccionar estudiante</label><select id="redeemStudent"><option value="">Selecciona estudiante</option>${db.students.map(s=>`<option value="${esc(s.id)}">${esc(s.name)} · Saldo: ${total(s.id)} puntos</option>`).join("")}</select></div><button class="wide" onclick="redeem('${r.id}')">Confirmar canje</button><button class="wide secondary" style="margin-top:8px" onclick="document.getElementById('redeemArea').innerHTML=''">Cancelar</button></div>`;
+ area.innerHTML=`
+  <div class="card">
+   <h2>Confirmar canje</h2>
+   <p>Recompensa: <strong>${esc(r.name)}</strong> · ${r.cost} puntos</p>
+   <div class="field">
+    <label>Seleccionar estudiante</label>
+    <select id="redeemStudent">
+     <option value="">Selecciona estudiante</option>
+     ${db.students.map(s=>`<option value="${esc(s.id)}">${esc(s.name)} · Saldo: ${total(s.id)} puntos</option>`).join("")}
+    </select>
+   </div>
+   <button class="wide" onclick="redeem('${esc(r.id)}')">Confirmar canje</button>
+   <button class="wide secondary" style="margin-top:8px" onclick="document.getElementById('redeemArea').innerHTML=''">Cancelar</button>
+  </div>`;
  area.scrollIntoView({behavior:"smooth",block:"start"});
 }
 function redeem(rewardId){
- const r=db.rewards.find(x=>x.id===rewardId),id=document.getElementById("redeemStudent").value,s=db.students.find(x=>x.id===id);
+ const r=db.rewards.find(x=>x.id===rewardId);
+ const select=document.getElementById("redeemStudent");
+ const s=db.students.find(x=>x.id===select.value);
  if(!r||!s)return alert("Selecciona un estudiante.");
- if(total(id)<r.cost)return alert(`${s.name} no tiene suficientes puntos. Saldo: ${total(id)}.`);
+ if(total(s.id)<r.cost)return alert(`${s.name} no tiene suficientes puntos. Saldo: ${total(s.id)}.`);
  if(!confirm(`¿Canjear "${r.name}" por ${r.cost} puntos para ${s.name}?`))return;
- db.redemptions.push({id:"c-"+Date.now(),studentId:id,rewardId:r.id,rewardName:r.name,cost:r.cost,date:new Date().toISOString()});
- save();alert("Canje registrado correctamente.");rewardsPage();
+ db.redemptions.push({
+  id:newId("c"),
+  studentId:s.id,
+  rewardId:r.id,
+  rewardName:r.name,
+  cost:r.cost,
+  date:new Date().toISOString()
+ });
+ save();
+ alert("Canje registrado correctamente.");
+ rewardsPage();
 }
+
 function baseURL(){return location.origin+location.pathname}
 function studentLink(s){return baseURL()+"?student="+encodeURIComponent(s.id)}
 function nfcPage(){
- document.getElementById("app").innerHTML=`<h1>Generador de enlaces NFC</h1>
- <div class="notice">Selecciona un estudiante, copia su enlace individual y escríbelo en la tarjeta usando NFC Tools → Escribir → URL/URI.</div>
- <div class="field"><label>Seleccionar estudiante</label><select id="nfcSelect" onchange="showNFC()"><option value="">Selecciona un estudiante</option>${db.students.map(s=>`<option value="${esc(s.id)}">${esc(s.name)} · ${esc(s.course||"Sin curso")}</option>`).join("")}</select></div>
- <div id="nfcResult" class="card hidden"><h3>Enlace individual</h3><div class="link" id="nfcLink"></div><button class="wide" onclick="copyNFC()">📋 Copiar enlace NFC</button><button class="wide secondary" style="margin-top:8px" onclick="openNFC()">Abrir perfil</button><p class="muted">Código único: <span id="nfcCode"></span></p></div>
- <h2>Todos los estudiantes</h2>${db.students.length?db.students.map(s=>`<div class="student"><div class="details"><strong>${esc(s.name)}</strong><small>${esc(s.course||"Sin curso")}</small></div><button onclick="chooseNFC('${s.id}')">Generar</button></div>`).join(""):'<div class="empty">Primero registra estudiantes.</div>'}
- <div class="notice">Aviso: el enlace identifica el perfil, pero no impide que alguien intente abrirlo. La seguridad requiere autenticación.</div>`;
+ document.getElementById("app").innerHTML=`
+  <h1>Generador de enlaces NFC</h1>
+  <div class="notice">Selecciona un estudiante, copia su enlace individual y escríbelo en la tarjeta desde NFC Tools usando la opción URL/URI.</div>
+  <div class="field">
+   <label>Seleccionar estudiante</label>
+   <select id="nfcSelect" onchange="showNFC()">
+    <option value="">Selecciona un estudiante</option>
+    ${db.students.map(s=>`<option value="${esc(s.id)}">${esc(s.name)} · ${esc(s.course||"Sin curso")}</option>`).join("")}
+   </select>
+  </div>
+  <div id="nfcResult" class="card hidden">
+   <h3>Enlace individual</h3>
+   <div class="link" id="nfcLink"></div>
+   <button class="wide" onclick="copyNFC()">📋 Copiar enlace NFC</button>
+   <button class="wide secondary" style="margin-top:8px" onclick="openNFC()">Abrir perfil</button>
+   <p class="muted">Código: <span id="nfcCode"></span></p>
+  </div>
+  <h2>Estudiantes</h2>
+  ${db.students.length?db.students.map(s=>`
+   <div class="student">
+    <div class="details"><strong>${esc(s.name)}</strong><small>${esc(s.course||"Sin curso")}</small></div>
+    <button onclick="chooseNFC('${esc(s.id)}')">Generar enlace</button>
+   </div>
+  `).join(""):'<div class="empty">Primero registra estudiantes.</div>'}
+  <div class="notice">Importante: el enlace abre el perfil asociado, pero no verifica la identidad de quien lo abre. La aplicación actual utiliza datos locales del navegador.</div>`;
 }
-function chooseNFC(id){document.getElementById("nfcSelect").value=id;showNFC();document.getElementById("nfcResult").scrollIntoView({behavior:"smooth"})}
-function showNFC(){const id=document.getElementById("nfcSelect").value,s=db.students.find(x=>x.id===id),box=document.getElementById("nfcResult");if(!s){box.classList.add("hidden");return}document.getElementById("nfcLink").textContent=studentLink(s);document.getElementById("nfcCode").textContent=s.id;box.classList.remove("hidden")}
-async function copyNFC(){const text=document.getElementById("nfcLink").textContent;try{await navigator.clipboard.writeText(text);alert("Enlace copiado.")}catch(e){prompt("Copia este enlace:",text)}}
-function openNFC(){location.href=document.getElementById("nfcLink").textContent}
+function chooseNFC(id){
+ document.getElementById("nfcSelect").value=id;
+ showNFC();
+ document.getElementById("nfcResult").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function showNFC(){
+ const id=document.getElementById("nfcSelect").value;
+ const s=db.students.find(x=>x.id===id);
+ const box=document.getElementById("nfcResult");
+ if(!s){box.classList.add("hidden");return;}
+ document.getElementById("nfcLink").textContent=studentLink(s);
+ document.getElementById("nfcCode").textContent=s.id;
+ box.classList.remove("hidden");
+}
+async function copyNFC(){
+ const value=document.getElementById("nfcLink").textContent;
+ try{
+  await navigator.clipboard.writeText(value);
+  alert("Enlace copiado.");
+ }catch(e){
+  prompt("Copia este enlace:",value);
+ }
+}
+function openNFC(){
+ location.href=document.getElementById("nfcLink").textContent;
+}
+
 function reportsPage(){
- document.getElementById("app").innerHTML=`<h1>Resumen de puntos</h1><div class="stats"><div class="stat"><strong>${db.students.length}</strong><small>Estudiantes</small></div><div class="stat"><strong>${totalAll()}</strong><small>Puntos disponibles sumados</small></div></div><h2>Puntaje por estudiante</h2>${db.students.length?db.students.map(s=>`<div class="student"><div class="details"><strong>${esc(s.name)}</strong><small>${esc(s.course||"Sin curso")}</small></div><strong>${total(s.id)} pts</strong></div>`).join(""):'<div class="empty">No hay estudiantes.</div>'}`;
+ const sorted=[...db.students].sort((a,b)=>total(b.id)-total(a.id));
+ document.getElementById("app").innerHTML=`
+  <h1>Resumen de puntos</h1>
+  <div class="stats">
+   <div class="stat"><strong>${db.students.length}</strong><small>Estudiantes</small></div>
+   <div class="stat"><strong>${totalAll()}</strong><small>Puntos disponibles totales</small></div>
+  </div>
+  <h2>Puntaje por estudiante</h2>
+  ${sorted.length?sorted.map(s=>`
+   <div class="student">
+    <div class="details"><strong>${esc(s.name)}</strong><small>${esc(s.course||"Sin curso")}</small></div>
+    <strong>${total(s.id)} pts</strong>
+   </div>
+  `).join(""):'<div class="empty">No hay estudiantes.</div>'}`;
 }
+
 function toolsPage(){
- document.getElementById("app").innerHTML=`<h1>Herramientas y respaldo</h1>
- <div class="card"><h3>Descargar respaldo JSON</h3><p class="muted">Incluye estudiantes, categorías, historial, catálogo de recompensas y canjes.</p><button class="wide" onclick="backup()">Descargar respaldo</button></div>
- <div class="card"><h3>Restaurar respaldo JSON</h3><input type="file" accept=".json,application/json" onchange="restore(event)"></div>
- <div class="card"><h3>Exportar estudiantes CSV</h3><button class="wide secondary" onclick="exportCSV()">Exportar CSV</button></div>
- <div class="notice">Esta versión guarda los datos en el navegador local. No sincroniza automáticamente entre dispositivos. Descarga respaldos con frecuencia.</div>`;
+ document.getElementById("app").innerHTML=`
+  <h1>Herramientas y respaldo</h1>
+  <div class="card">
+   <h3>Descargar respaldo JSON</h3>
+   <p class="muted">Guarda estudiantes, categorías, historial, recompensas y canjes.</p>
+   <button class="wide" onclick="backup()">Descargar respaldo</button>
+  </div>
+  <div class="card">
+   <h3>Restaurar respaldo JSON</h3>
+   <input type="file" accept=".json,application/json" onchange="restore(event)">
+  </div>
+  <div class="card">
+   <h3>Exportar estudiantes CSV</h3>
+   <button class="wide secondary" onclick="exportCSV()">Exportar CSV</button>
+  </div>
+  <div class="notice">Los datos se guardan en este navegador. Para usar varios dispositivos sincronizados se necesita una base de datos en la nube.</div>`;
 }
-function download(content,name,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
-function backup(){download(JSON.stringify(db,null,2),"edupuntos-respaldo.json","application/json")}
+function downloadFile(content,name,type){
+ const blob=new Blob([content],{type});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");
+ a.href=url;a.download=name;a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function backup(){
+ downloadFile(JSON.stringify(db,null,2),"edupuntos-respaldo.json","application/json");
+}
 function restore(event){
- const file=event.target.files[0];if(!file)return;
+ const file=event.target.files[0];
+ if(!file)return;
  const reader=new FileReader();
  reader.onload=()=>{
-  try{const x=JSON.parse(reader.result);if(!Array.isArray(x.students)||!Array.isArray(x.history))throw Error();
-   if(!confirm("Restaurar reemplazará los datos actuales de este navegador. ¿Continuar?"))return;
-   db={students:x.students,history:x.history||[],categories:x.categories||DEFAULT_CATEGORIES,rewards:x.rewards||DEFAULT_REWARDS,redemptions:x.redemptions||[]};save();alert("Respaldo restaurado.");home();
-  }catch(e){alert("Archivo de respaldo no válido.")}
+  try{
+   const x=JSON.parse(reader.result);
+   if(!Array.isArray(x.students)||!Array.isArray(x.history))throw Error("Formato incorrecto");
+   if(!confirm("La restauración reemplazará los datos actuales de este navegador. ¿Continuar?"))return;
+   db={
+    students:x.students,
+    history:x.history||[],
+    categories:x.categories||[...DEFAULT_CATEGORIES],
+    rewards:x.rewards||[],
+    redemptions:x.redemptions||[]
+   };
+   save();
+   alert("Respaldo restaurado correctamente.");
+   home();
+  }catch(e){
+   alert("El archivo de respaldo no es válido.");
+  }
  };
  reader.readAsText(file);
 }
 function exportCSV(){
- const rows=[["Nombre","Curso","Código","Puntos disponibles"],...db.students.map(s=>[s.name,s.course,s.id,total(s.id)])];
+ const rows=[
+  ["Nombre","Curso","Código","Puntos disponibles"],
+  ...db.students.map(s=>[s.name,s.course,s.id,total(s.id)])
+ ];
  const csv=rows.map(row=>row.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(";")).join("\r\n");
- download("\ufeff"+csv,"edupuntos-estudiantes.csv","text/csv;charset=utf-8");
+ downloadFile("\ufeff"+csv,"edupuntos-estudiantes.csv","text/csv;charset=utf-8");
 }
+
 migrate();
 save();
-const initial=new URLSearchParams(location.search).get("student");
-if(initial&&db.students.some(s=>s.id===initial))openProfile(initial);else page("home");
+const initialStudent=new URLSearchParams(location.search).get("student");
+if(initialStudent&&db.students.some(s=>s.id===initialStudent)){
+ openProfile(initialStudent);
+}else{
+ page("home");
+}
 </script>
 </body>
 </html>
